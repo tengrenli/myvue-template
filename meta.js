@@ -51,11 +51,6 @@ module.exports = {
       type: 'string',
       message: 'Author',
     },
-    lint: {
-      when: 'isNotTest',
-      type: 'confirm',
-      message: 'Use ESLint to lint your code?',
-    },
     autoInstall: {
       when: 'isNotTest',
       type: 'list',
