@@ -1,15 +1,14 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import VueRouter from 'vue-router'
+import CON from '@conf'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
-  ]
+const router = new VueRouter({
+  ...CON.ROUTER_CONFIG,
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: CON.ROUTERS
 })
+router.beforeEach(CON.INTERCEPTORS.routerBeforeEach)
+export default router
