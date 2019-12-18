@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../../assets/logo.png">
+    <div>{{"15631709035" | formatPhone}}</div>
     <div class="test">
       <p class="hello">Hello</p>
     </div>
@@ -18,6 +19,9 @@ export default {
     HelloWorld
   },
   mounted () {
+    this.$api.user.login().then(res => {
+      console.log('success==>', res)
+    })
     this.$api.article.articleList().then(res => {
       console.log('success==>', res)
     })

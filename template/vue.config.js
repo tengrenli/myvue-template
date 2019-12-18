@@ -1,9 +1,9 @@
 const path = require('path')
 const env = process.env.VUE_APP_ENV
-
+const outputDir = `releases-${env}`
 module.exports = {
-  // outputDir: 'dist',
-  // assetsDir: '/',
+  outputDir: outputDir,
+  assetsDir: 'dist',
   css: {
     loaderOptions: {
       sass: {

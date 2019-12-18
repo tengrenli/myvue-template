@@ -9,7 +9,11 @@ import axios from '@request/http' // 导入http中创建的axios实例
 const article = {
   // 新闻列表
   articleList () {
+    console.log('访问了；；；')
     return axios.get(`/user/user`)
+  },
+  detail () {
+    return axios.get(`user/user`)
   },
   // 新闻详情,演示
   articleDetail (id, params) {

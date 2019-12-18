@@ -10,9 +10,11 @@ import article from './article'
 
 // 登录接口
 import login from './login'
+import user from './user'
 
 export default {
-  comm,
   article,
+  user,
+  comm,
   login
 }

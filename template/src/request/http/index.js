@@ -64,6 +64,12 @@ const errorHandle = (status, other) => {
 
 // 创建axios实例
 const ENV = process.env.VUE_APP_API_HOST
+// let BASEURL = ''
+// if (Math.random() > 0.5) {
+//   BASEURL = ''
+// } else {
+//   BASEURL = '/api'
+// }
 let instance = axios.create({
   timeout: 1000 * 12,
   baseURL: ENV,

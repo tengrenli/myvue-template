@@ -7,7 +7,7 @@ import store from './store'
 import inject from './inject'
 import filters from './utils/filter'
 import FastClick from 'fastclick'
-
+require('./mock')
 // 注册过滤器
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 
