@@ -2,8 +2,6 @@
 import MD5 from 'md5'
 import _ from 'lodash'
 
-import CON from '@conf'
-
 const paramSort = res => {
   var str = []
   // 将对象转成数组
@@ -23,7 +21,7 @@ const signGenerate = res => {
   for (let i = 0; i < objs.length; i++) {
     strs += objs[i][0] + '' + ((objs[i][1] === null || objs[i][1] === undefined) ? '' : objs[i][1])
   }
-  strs = MD5(CON.APPSECRET + strs + CON.APPSECRET).toLowerCase()
+  strs = MD5(process.env.VUE_APP_API_APPSECRET + strs + process.env.VUE_APP_API_APPSECRET).toLowerCase()
   return strs
 }
 
