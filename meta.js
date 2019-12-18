@@ -55,23 +55,18 @@ module.exports = {
       when: 'isNotTest',
       type: 'list',
       message:
-        'Should we run `npm install` for you after the project has been created? (recommended)',
+          'Should we run `yarn install` for you after the project has been created?',
       choices: [
         {
-          name: 'Yes, use NPM',
-          value: 'npm',
-          short: 'npm',
-        },
-        {
-          name: 'Yes, use Yarn',
+          name: 'Yes, use Yarn (recommended)',
           value: 'yarn',
           short: 'yarn',
         },
         {
-          name: 'No, I will handle that myself',
-          value: false,
-          short: 'no',
-        },
+          name: 'Yes, use NPM',
+          value: 'npm',
+          short: 'npm',
+        }
       ],
     },
   },
