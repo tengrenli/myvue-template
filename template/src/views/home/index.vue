@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../../assets/logo.png">
-    <div>{{"15631709035" | formatPhone}}</div>
     <div class="test">
       <p class="hello">Hello</p>
     </div>
