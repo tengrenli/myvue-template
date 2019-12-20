@@ -1,9 +1,9 @@
 
 import MD5 from 'md5'
 import _ from 'lodash'
-
+import './directives' /* 导入所有指令 */
 const paramSort = res => {
-  var str = []
+  let str = []
   // 将对象转成数组
   for (var i in res) {
     str.push([i, res[i]])
@@ -16,8 +16,8 @@ const paramSort = res => {
 }
 
 const signGenerate = res => {
-  var objs = paramSort(res)
-  var strs = ''
+  let objs = paramSort(res)
+  let strs = ''
   for (let i = 0; i < objs.length; i++) {
     strs += objs[i][0] + '' + ((objs[i][1] === null || objs[i][1] === undefined) ? '' : objs[i][1])
   }
@@ -32,11 +32,11 @@ const signGenerate = res => {
  * @return {Array}         返回排序后的数组
  */
 const _sort = (array, fn) => {
-  for (var i = 0; i < array.length - 1; i++) {
-    var isSorted = true
-    for (var j = 0; j < array.length - 1 - i; j++) {
+  for (let i = 0; i < array.length - 1; i++) {
+    let isSorted = true
+    for (let j = 0; j < array.length - 1 - i; j++) {
       if (fn(array[j], array[j + 1]) > 0) {
-        var temp = array[j]
+        let temp = array[j]
         array[j] = array[j + 1]
         array[j + 1] = temp
         isSorted = false
@@ -54,14 +54,9 @@ const isWechatEnv = () => {
   else return false
 }
 
-const lib = {
-  signGenerate,
-  isWechatEnv
-}
-
 const isIOS = () => {
-  var isIphone = navigator.userAgent.includes('iPhone')
-  var isIpad = navigator.userAgent.includes('iPad')
+  let isIphone = navigator.userAgent.includes('iPhone')
+  let isIpad = navigator.userAgent.includes('iPad')
   return isIphone || isIpad
 }
 
@@ -69,7 +64,7 @@ const isIOS = () => {
  * 跳转页面不记录URL
  */
 const _urlReplace = uri => {
-  var href = uri
+  let href = uri
   if (href && /^#|javasc/.test(href) === false) {
     if (history.replaceState) {
       history.replaceState(null, document.title, href.split('#')[0] + '#')
@@ -79,11 +74,14 @@ const _urlReplace = uri => {
     }
   }
 }
-
+const lib = {
+  isIOS,
+  _urlReplace,
+  signGenerate, // 签名规则  根据实际情况调整
+  isWechatEnv
+}
 export default {
   _,
   MD5,
-  lib,
-  isIOS,
-  _urlReplace
+  lib
 }

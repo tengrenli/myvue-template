@@ -39,7 +39,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '@view/about'),
     meta: {
       title: 'about',
-      requireAuth: true
+      requireAuth: false
     }
   }
 ]

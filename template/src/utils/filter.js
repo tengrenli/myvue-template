@@ -17,7 +17,7 @@ const filters = {
   * @param {String} isGlobal [g] 是否去掉所有的空格
   */
   trim: (str, isGlobal) => {
-    var result
+    let result
     result = str.replace(/(^\s+)|(\s+$)g/, '')
     if (isGlobal && isGlobal.toLowerCase() === 'g') return result.replace(/\s/g, '')
     return result

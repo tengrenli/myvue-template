@@ -7,11 +7,18 @@ import store from './store'
 import inject from './inject'
 import filters from './utils/filter'
 import FastClick from 'fastclick'
+/**
+ * 按需加载vant组件
+ */
+import { Toast, Loading } from 'vant'
+Vue.use(Toast, Loading)
+
 require('./mock')
 // 注册过滤器
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 
 Vue.use(inject)
+
 /**
  * 消除物理点击和 click 移动浏览器上的事件触发之间的300毫秒延迟
  */

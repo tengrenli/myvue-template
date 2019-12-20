@@ -3,10 +3,9 @@
  * 请求拦截、响应拦截、错误统一处理
  */
 import axios from 'axios'
-import router from '../../router'
-import store from '../../store'
+import router from '../router'
+import store from '../store'
 import { Toast } from 'vant'
-
 /**
  * 提示函数
  * 禁止点击蒙层、显示一秒后关闭
@@ -14,10 +13,16 @@ import { Toast } from 'vant'
 const tip = msg => {
   Toast({
     message: msg,
-    duration: 1000,
+    duration: 3000,
     forbidClick: true
   })
 }
+
+const loadingInstance = Toast.loading({
+  message: '加载中...',
+  forbidClick: true,
+  duration: 300000
+})
 
 /**
  * 跳转登录页
@@ -64,12 +69,6 @@ const errorHandle = (status, other) => {
 
 // 创建axios实例
 const ENV = process.env.VUE_APP_API_HOST
-// let BASEURL = ''
-// if (Math.random() > 0.5) {
-//   BASEURL = ''
-// } else {
-//   BASEURL = '/api'
-// }
 let instance = axios.create({
   timeout: 1000 * 12,
   baseURL: ENV,
@@ -77,7 +76,7 @@ let instance = axios.create({
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
   }
 })
-// 设置post请求头
+
 /**
  * 请求拦截器
  * 每次请求前，如果存在token则在请求头中携带token
@@ -88,18 +87,38 @@ instance.interceptors.request.use(
     // 但是即使token存在，也有可能token是过期的，所以在每次的请求头中携带token
     // 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码
     // 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。
+    loadingInstance.open()
     const token = store.state.token
     token && (config.headers.Authorization = token)
+
+    // 在这里：可以根据业务需求可以在发送请求之前做些什么:例如我这个是导出文件的接口，因为返回的是二进制流，所以需要设置请求响应类型为blob，就可以在此处设置。
+    // if (config.url.includes('pur/contract/export')) {
+    //   config.headers['responseType'] = 'blob'
+    // }
+    // 我这里是文件上传，发送的是二进制流，所以需要设置请求头的'Content-Type'
+    // if (config.url.includes('pur/contract/upload')) {
+    //   config.headers['Content-Type'] = 'multipart/form-data'
+    // }
     return config
   },
-  error => Promise.error(error))
+  error => {
+    loadingInstance.close()
+    Promise.error(error)
+  }
+)
 
-// 响应拦截器
+/**
+* 响应拦截器
+*/
 instance.interceptors.response.use(
   // 请求成功
-  res => res.status === 200 ? Promise.resolve(res) : Promise.reject(res),
+  res => {
+    loadingInstance.close()
+    return res
+  },
   // 请求失败
   error => {
+    loadingInstance.close()
     const { response } = error
     if (response) {
       // 请求已发出，但是不在2xx的范围
@@ -117,5 +136,42 @@ instance.interceptors.response.use(
       }
     }
   })
+/**
+ * get方法，对应get请求
+ * @param {String} url [请求的url地址]
+ * @param {Object} params [请求时携带的参数]
+ */
+function get (url, params) {
+  return new Promise((resolve, reject) => {
+    instance.get(url, {
+      params: params
+    }).then(res => {
+      resolve(res)
+    }).catch(err => {
+      reject(err)
+    })
+  })
+}
 
-export default instance
+/**
+ * post方法，对应post请求
+ * @param {String} url [请求的url地址]
+ * @param {Object} params [请求时携带的参数]
+ */
+function post (url, params) {
+  return new Promise((resolve, reject) => {
+    instance.post(url, JSON.stringify(params))
+      .then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+export {
+  instance,
+  get,
+  post
+}

@@ -1,46 +1,42 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../../assets/logo.png">
-    <div class="test">
-      <p class="hello">Hello</p>
-    </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    Home Page
+    <timer time="172800"/>
   </div>
 </template>
 
 <script>
-// @comp is an alias to /src/components
-import { HelloWorld } from '@comp'
-
+import { user, userInfo } from '../../request/api/user'
+// or import { user } from '@request/api/user'
+// import { get } from '@request'
+import { Timer } from '@comp'
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    Timer
   },
   mounted () {
-    this.$api.user.login().then(res => {
-      console.log('success==>', res)
+    /**
+    * 使用全局实例res
+    * */
+    this.$axios.get('user/user').then(res => {
+      console.log('全局方法调用：：：', res)
     })
-    this.$api.article.articleList().then(res => {
-      console.log('success==>', res)
+    /**
+    * 使用自定义方法
+    * */
+    user().then(res => {
+      console.log('自定义get：：：', res)
+    })
+
+    userInfo({ id: 123 }).then(res => {
+      console.log('自定义post:::', res)
     })
   }
 }
 </script>
-<style lang="scss" scoped>
-  * {
-    padding: 0;
-    margin: 0;
-  }
-  .test{
-    width:750px;
-    height:160px;
-    background-color: bisque;
-    text-align: center
-  }
-
-  .hello{
-    color: $color-base ;
-    font-size: 50px;
+<style lang="scss"  scoped>
+  div {
+    color: $color-grey-dim;
   }
 </style>

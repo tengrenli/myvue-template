@@ -11,10 +11,22 @@ function login (req) {
     }
   }
 }
-
-function profile (req) {
+function user (req) {
+  // req是一个请求对象，包含: url，type和body属性
   return {
     code: 200,
+    msg: '来自mock数据',
+    data: {
+      username: Random.cname(),
+      token: Random.guid(),
+      message: 'Login successfully.'
+    }
+  }
+}
+function info (req) {
+  return {
+    code: 200,
+    msg: '来自mock数据',
     data: {
       username: Random.cname(),
       age: Random.integer(10, 30),
@@ -35,6 +47,7 @@ function logout (req) {
 
 export default {
   login,
-  profile,
-  logout
+  info,
+  logout,
+  user
 }

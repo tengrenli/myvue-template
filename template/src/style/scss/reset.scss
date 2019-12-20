@@ -1,10 +1,9 @@
-/**
- * CSS reset Style
- */
-
+@charset "utf-8";
+/*
+*禁用iPhone中Safari的字号自动调整
+*/
 html {
-  line-height: 1;
-  font-size: 100%;
+  //font-family: "黑体";
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-overflow-scrolling: touch;
   -webkit-text-size-adjust: none;
@@ -13,58 +12,78 @@ html {
   -ms-text-size-adjust: none;
 }
 
-
-body {
-  // font: 12px 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'STHeiti Light [STXihei]', sans-serif;
-  font-family: 'Helvetica Neue', Arial, Verdana, Sans-serif;
-  margin: 0 auto !important;
-  background: #fff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+/*
+*去除iPhone中默认的input样式
+*/
+input[type="submit"], input[type="reset"], input[type="button"], input:focus, button:focus, select:focus, textarea:focus {
+  outline: none;
 }
 
-/* 内外边距通常让各个浏览器样式的表现位置不同 */
-body,
-div,
-dl,
-dt,
-dd,
-ul,
-ol,
-li,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-pre,
-code,
-form,
-fieldset,
-legend,
-input,
-textarea,
-p,
-blockquote,
-th,
-td,
-hr,
-button,
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
+input {
+  -webkit-appearance: none;
+  resize: none;
+  border-radius: 0;
+}
+
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article,
+aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/*
+*设置HTML5元素为块
+*/
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/*
+*图片自适应
+*/
+img {
+  max-width: 100%;
+  -ms-interpolation-mode:bicubic;//为了照顾ie图片缩放失真/
+}
+
+
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article,
+aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   margin: 0;
   padding: 0;
+  border: none;
+}
+
+
+em, i {
+  font-style: normal;
+}
+
+strong {
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+  //font-family: '黑体', Microsoft YaHei, Tahoma, Arial, sans-serif;
+}
+
+a:hover {
+  color: #FED503;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  //font-family: Microsoft YaHei;
+}
+
+img {
+  border: none;
 }
 
 /**
@@ -75,20 +94,6 @@ section {
 table {
   border-spacing: 0;
   border-collapse: collapse;
-}
-
-/**
- * 移除浏览器部分元素的默认边框
- */
-
-img,
-abbr,
-input,
-button,
-acronym,
-fieldset,
-textarea {
-  border: none;
 }
 
 /**
@@ -111,10 +116,12 @@ acronym {
   border: 0;
   font-variant: normal;
 }
+
 /* 一致的 del 样式 */
 del {
   text-decoration: line-through;
 }
+
 address,
 caption,
 cite,
@@ -143,10 +150,12 @@ h6 {
   font-size: 100%;
   font-weight: 500;
 }
+
 q:before,
 q:after {
   content: '';
 }
+
 /* 统一上标和下标 */
 sub,
 sup {
@@ -155,9 +164,11 @@ sup {
   position: relative;
   vertical-align: baseline;
 }
+
 sup {
   top: -0.5em;
 }
+
 sub {
   bottom: -0.25em;
 }
@@ -187,29 +198,6 @@ optgroup {
   line-height: inherit;
   color: inherit;
   outline: none;
-}
-
-/**
- * 取消下面元素的默认文字装饰（下划线、中划线）
- */
-
-a,
-del,
-ins {
-  text-decoration: none;
-}
-
-i {
-  font-style: normal;
-}
-
-/**
- * 取消ol，ul默认列表样式
- */
-
-ol,
-ul {
-  list-style: none;
 }
 
 /**
@@ -244,16 +232,19 @@ textarea {
   font-size: 100%;
   vertical-align: middle;
 }
+
 button,
 input {
   *overflow: visible;
   line-height: normal;
 }
+
 button::-moz-focus-inner,
 input::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
+
 button,
 input[type="button"],
 input[type="reset"],
@@ -270,15 +261,24 @@ input[type="search"] {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
+
 // 在Chrome OSX，Safari 5中，内部填充问题
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
+
 textarea {
   // 在ie6-9中删除垂直滚动条
   overflow: auto;
   vertical-align: top;
+}
+body {
+  font-family: 'Helvetica Neue', Arial, Verdana, Sans-serif;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /**
@@ -287,6 +287,7 @@ textarea {
 .lf {
   float: left;
 }
+
 .rt {
   float: right;
 }
@@ -301,6 +302,7 @@ textarea {
   clear: both;
   visibility: hidden;
 }
+
 .clear {
   zoom: 1;
 }

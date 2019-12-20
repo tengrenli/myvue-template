@@ -10,10 +10,12 @@ import user from './modules/user'
 const { mock } = Mock // Mock函数
 
 // 使用拦截规则拦截命中的请求
+/**
+ * 匹配到路由即不再请求服务器；
+ * 此mock请求不在浏览器Network 中显示，可通过console.log 查看结果数据
+ * */
 // mock( url, post/get, 返回的数据);
-// import { user } from '@request/api/config.js'
-mock(/\/user\/login/, 'get', user.login)
-// mock(/\/users\/profile/, 'get', user.profile)
+// mock(/\/user\/login/, 'get', user.login)
 // mock(/\/users\/logout/, 'post', user.logout)
-
-// mock(/\/user\/user/, 'get', user.profile)
+mock(/\/user\/users/, 'get', user.info)
+mock(/\/user\/user/, 'post', user.user)
