@@ -24,15 +24,6 @@ module.exports = {
       chunks: 'all'
     })
 
-    if (env !== 'production') {
-      config.output.devtoolModuleFilenameTemplate = info => {
-        const resPath = info.resourcePath
-        if ((/\.vue$/.test(resPath) && !/type=script/.test(info.identifier)) || /node_modules/.test(resPath)) {
-          return `webpack:///${resPath}?${info.hash}`
-        }
-        return `webpack:///${resPath.replace('./src', 'my-code/src')}`
-      }
-    }
     // 设置别名
     config.resolve.alias
       .set('@', path.resolve(__dirname, 'src'))
@@ -52,7 +43,6 @@ module.exports = {
     open: process.platform === 'darwin',
     // https: false,
     hotOnly: true,
-    // host: '192.168.0.101',
     // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#配置代理
     proxy: {
       '/api': {

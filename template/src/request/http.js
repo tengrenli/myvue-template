@@ -18,11 +18,7 @@ const tip = msg => {
   })
 }
 
-const loadingInstance = Toast.loading({
-  message: '加载中...',
-  forbidClick: true,
-  duration: 300000
-})
+let loadingInstance = null
 
 /**
  * 跳转登录页
@@ -41,6 +37,7 @@ const toLogin = () => {
  * 请求失败后的错误统一处理
  * @param {Number} status 请求失败的状态码
  */
+// eslint-disable-next-line no-unused-vars
 const errorHandle = (status, other) => {
   // 状态码判断
   switch (status) {
@@ -68,10 +65,16 @@ const errorHandle = (status, other) => {
 }
 
 // 创建axios实例
-const ENV = process.env.VUE_APP_API_HOST
+
+let BASEURL = ''
+if (process.env.VUE_APP_ENV === 'development') {
+  BASEURL = process.env.VUE_APP_API_HOST
+} else {
+  BASEURL = `${window.location.protocol}//${window.location.host}`
+}
 let instance = axios.create({
   timeout: 1000 * 12,
-  baseURL: ENV,
+  baseURL: BASEURL,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
   }
@@ -83,13 +86,17 @@ let instance = axios.create({
  */
 instance.interceptors.request.use(
   config => {
+    loadingInstance = Toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+      duration: 1000 * 30
+    })
     // 登录流程控制中，根据本地是否存在token判断用户的登录情况
     // 但是即使token存在，也有可能token是过期的，所以在每次的请求头中携带token
     // 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码
     // 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。
-    loadingInstance.open()
-    const token = store.state.token
-    token && (config.headers.Authorization = token)
+    // const token = store.state.token
+    // token && (config.headers.Authorization = token)
 
     // 在这里：可以根据业务需求可以在发送请求之前做些什么:例如我这个是导出文件的接口，因为返回的是二进制流，所以需要设置请求响应类型为blob，就可以在此处设置。
     // if (config.url.includes('pur/contract/export')) {
@@ -102,6 +109,7 @@ instance.interceptors.request.use(
     return config
   },
   error => {
+    console.log('req_err:::', error)
     loadingInstance.close()
     Promise.error(error)
   }
@@ -118,60 +126,27 @@ instance.interceptors.response.use(
   },
   // 请求失败
   error => {
+    console.log('res_error:::', error)
     loadingInstance.close()
-    const { response } = error
-    if (response) {
-      // 请求已发出，但是不在2xx的范围
-      errorHandle(response.status, response.data.message)
-      return Promise.reject(response)
-    } else {
-      // 处理断网的情况
-      // eg:请求超时或断网时，更新state的network状态
-      // network状态在app.vue中控制着一个全局的断网提示组件的显示隐藏
-      // 关于断网组件中的刷新重新获取数据，会在断网组件中说明
-      if (!window.navigator.onLine) {
-        store.commit('changeNetwork', false)
-      } else {
-        return Promise.reject(error)
-      }
-    }
+    return Promise.reject(error)
   })
-/**
- * get方法，对应get请求
- * @param {String} url [请求的url地址]
- * @param {Object} params [请求时携带的参数]
- */
-function get (url, params) {
+
+function http (obj) {
   return new Promise((resolve, reject) => {
-    instance.get(url, {
-      params: params
-    }).then(res => {
-      resolve(res)
-    }).catch(err => {
-      reject(err)
+    let { type, url, data, ...config } = obj
+    instance({
+      method: type || 'get',
+      url: url,
+      params: data || {},
+      ...config
+    }).then(response => {
+      resolve(response)
+    }).catch(error => { // error
+      reject(error)
     })
   })
 }
 
-/**
- * post方法，对应post请求
- * @param {String} url [请求的url地址]
- * @param {Object} params [请求时携带的参数]
- */
-function post (url, params) {
-  return new Promise((resolve, reject) => {
-    instance.post(url, JSON.stringify(params))
-      .then(res => {
-        resolve(res)
-      })
-      .catch(err => {
-        reject(err)
-      })
-  })
-}
-
 export {
-  instance,
-  get,
-  post
+  http
 }

@@ -5,8 +5,7 @@
 import Mock from 'mockjs'
 // 引入模板函数类
 import user from './modules/user'
-// import article from './modules/article'
-
+import apiUrl from '../request/apiConfig'
 const { mock } = Mock // Mock函数
 
 // 使用拦截规则拦截命中的请求
@@ -15,7 +14,6 @@ const { mock } = Mock // Mock函数
  * 此mock请求不在浏览器Network 中显示，可通过console.log 查看结果数据
  * */
 // mock( url, post/get, 返回的数据);
-// mock(/\/user\/login/, 'get', user.login)
-// mock(/\/users\/logout/, 'post', user.logout)
-mock(/\/user\/users/, 'get', user.info)
-mock(/\/user\/user/, 'post', user.user)
+
+mock(new RegExp(`${apiUrl.get_user}`), 'get', user.info)
+mock(new RegExp(`${apiUrl.get_userInfo}`), 'post', user.user)

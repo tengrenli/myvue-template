@@ -5,17 +5,20 @@ import router from './router'
 import store from './store'
 
 import inject from './inject'
-import filters from './utils/filter'
 import FastClick from 'fastclick'
+
 /**
  * 按需加载vant组件
  */
 import { Toast, Loading } from 'vant'
 Vue.use(Toast, Loading)
 
-require('./mock')
-// 注册过滤器
-Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
+/**
+ * 只有开发环境才使用mock数据
+ * */
+if (process.env.VUE_APP_ENV === 'development') {
+  require('./mock')
+}
 
 Vue.use(inject)
 

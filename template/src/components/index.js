@@ -7,13 +7,7 @@
  * import {HelloWorld} from '@comp'
  */
 
-import Timer from './Timer'
-import Progress from './Progress'
-import Message from './Message'
-import Loading from './Loading'
+import HelloWorld from './HelloWorld'
 export {
-  Timer,
-  Progress,
-  Message,
-  Loading
+  HelloWorld
 }

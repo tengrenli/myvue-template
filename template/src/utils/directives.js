@@ -1,5 +1,6 @@
-import Vue from 'vue'
-
+/**
+ * 自定义指令
+ * */
 const directives = {
   focus: {
     // 当被绑定的元素插入到 DOM 中时……
@@ -9,7 +10,6 @@ const directives = {
     }
   }
 }
-
-Object.keys(directives).map(t => {
-  Vue.directive(t, directives[t])
-})
+export {
+  directives
+}
