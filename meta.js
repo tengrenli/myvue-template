@@ -94,7 +94,7 @@ module.exports = {
   },
   filters: {
     'src/store/**/*': 'vuex',
-    'postcss.config.js': 'mobile',
+    'postcss.config.js': "platform && runner === 'mobile'",
   },
   complete: function(data, { chalk }) {
     const green = chalk.green

@@ -39,6 +39,6 @@ new Vue({
   router,
   {{#vuex}}
   store,
-  {{/router}}
+  {{/vuex}}
   render: h => h(App)
 }).$mount('#app')
