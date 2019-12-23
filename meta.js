@@ -62,13 +62,13 @@ module.exports = {
       message: 'PC or Mobile run your project ?',
       choices: [
         {
-          name: 'run in Mobile',
-          value: 'Mobile',
+          name: 'Mobile',
+          value: 'mobile',
           short: 'mobile',
         },
         {
-          name: 'run in PC',
-          value: 'PC',
+          name: 'PC',
+          value: 'pc',
           short: 'pc',
         }
       ]
