@@ -1,4 +1,4 @@
-{{#if_eq platform 'mobile'}}
+{{#if_eq platform "mobile"}}
 import 'lib-flexible'
 {{/if_eq}}
 import Vue from 'vue'
