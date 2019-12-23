@@ -51,6 +51,11 @@ module.exports = {
       type: 'string',
       message: 'Author',
     },
+    vuex: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Install vuex?'
+    },
     autoInstall: {
       when: 'isNotTest',
       type: 'list',
@@ -71,6 +76,7 @@ module.exports = {
     },
   },
   filters: {
+    'src/store/**/*': 'vuex'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
