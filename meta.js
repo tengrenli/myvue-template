@@ -94,7 +94,7 @@ module.exports = {
   },
   filters: {
     'src/store/**/*': 'vuex',
-    'postcss.config.js': 'Mobile',
+    'postcss.config.js': 'mobile',
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
