@@ -56,6 +56,23 @@ module.exports = {
       type: 'confirm',
       message: 'Install vuex?'
     },
+    platform: {
+      when: 'isNotTest',
+      type: 'list',
+      message: 'PC or Mobile run your project ?',
+      choices: [
+        {
+          name: 'run in Mobile',
+          value: 'Mobile',
+          short: 'mobile',
+        },
+        {
+          name: 'run in PC',
+          value: 'PC',
+          short: 'pc',
+        }
+      ]
+    },
     autoInstall: {
       when: 'isNotTest',
       type: 'list',
@@ -76,7 +93,8 @@ module.exports = {
     },
   },
   filters: {
-    'src/store/**/*': 'vuex'
+    'src/store/**/*': 'vuex',
+    'postcss.config.js': 'Mobile',
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
