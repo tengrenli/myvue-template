@@ -56,7 +56,7 @@ const errorHandle = (status, other) => {
       tip('请求的资源不存在')
       break
     default:
-      console.log(other)
+      // console.log(other)
   }
 }
 
@@ -91,7 +91,7 @@ const requestSuccess = config => {
  * 拦截器发起请求失败
  * */
 const requestFail = error => {
-  console.log('req_err:::', error)
+  // console.log('req_err:::', error)
   loadingInstance.close()
   Promise.error(error)
 }
@@ -107,7 +107,7 @@ const responseSuccess = res => {
  * responseError.message 和 responseError.response.status 来做监控处理
  * */
 const responseFail = error => {
-  console.log('res_error:::', error)
+  // console.log('res_error:::', error)
   loadingInstance.close()
   return Promise.reject(error)
 }

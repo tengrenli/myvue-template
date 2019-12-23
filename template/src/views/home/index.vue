@@ -15,10 +15,10 @@ export default {
       // data: {
       //   user: '123'
       // }
-    }).then(res => {
-      console.log('自定义get：：：', res)
-    }, (err) => {
-      console.log('err:::', err)
+    }).then(() => {
+      // console.log('自定义get：：：', res)
+    }, () => {
+      // console.log('err:::', err)
     })
   }
 }
