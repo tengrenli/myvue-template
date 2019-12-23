@@ -6,7 +6,7 @@ import App from './App.vue'
 import router from './router'
 {{#if vuex}}
 import store from './store'
-{{/vuex}}
+{{/if}}
 import inject from './inject'
 import FastClick from 'fastclick'
 
