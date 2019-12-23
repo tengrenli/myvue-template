@@ -4,8 +4,9 @@ import 'lib-flexible'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+{{#if vuex}}
 import store from './store'
-
+{{/vuex}}
 import inject from './inject'
 import FastClick from 'fastclick'
 
