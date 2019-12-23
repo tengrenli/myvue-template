@@ -1,5 +1,7 @@
 import router from '../../router'
+{{#if vuex}}
 import store from '../../store'
+{{/if}}
 import { Toast } from 'vant'
 
 /**
