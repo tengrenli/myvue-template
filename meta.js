@@ -54,12 +54,14 @@ module.exports = {
     vuex: {
       when: 'isNotTest',
       type: 'confirm',
+      default: true,
       message: 'Install vuex?'
     },
     platform: {
       when: 'isNotTest',
       type: 'list',
       message: 'PC or Mobile run your project ?',
+      default: 'mobile',
       choices: [
         {
           name: 'Mobile',
@@ -76,6 +78,7 @@ module.exports = {
     autoInstall: {
       when: 'isNotTest',
       type: 'list',
+      default: 'yarn',
       message:
           'Should we run `yarn install` for you after the project has been created?',
       choices: [

@@ -1,10 +1,13 @@
-{ 
+{
   "noEscape": true,
-  "name": "test",
+  "name": "vue project",
   "description": "A Vue.js project",
-  "author": "CircleCI",
+  "author": "Vue",
   "build": "runtime",
-  "router": false,
+  "router": true,
+  "yarn": true,
+  "vuex": true,
+  "platform": "mobile",
   "lint": true,
   "lintConfig": "standard",
   "unit": true,
