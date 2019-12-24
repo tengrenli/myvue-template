@@ -48,7 +48,9 @@ const errorHandle = (status, other) => {
     case 403:
       tip('登录过期，请重新登录')
       localStorage.removeItem('token')
+      {{#if vuex}}
       store.commit('loginSuccess', null)
+      {{/if}}
       setTimeout(() => {
         toLogin()
       }, 1000)
