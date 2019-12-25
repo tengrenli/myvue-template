@@ -5,6 +5,8 @@ module.exports = {
   outputDir: outputDir,
   assetsDir: 'dist',
   css: {
+    // 提取至独立CSS文件中
+    extract: env === 'production',
     loaderOptions: {
       sass: {
         // @/ is an alias to src/
