@@ -1,4 +1,5 @@
 const path = require('path')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const env = process.env.VUE_APP_ENV
 const outputDir = `releases-${env}`
 module.exports = {
@@ -25,7 +26,11 @@ module.exports = {
     config.optimization.splitChunks({
       chunks: 'all'
     })
-
+    if (process.env.use_analyzer) {
+      config
+        .plugin('webpack-bundle-analyzer')
+        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+    }
     // 设置别名
     config.resolve.alias
       .set('@', path.resolve(__dirname, 'src'))
